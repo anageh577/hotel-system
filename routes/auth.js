@@ -7,7 +7,7 @@ const Joi = require('joi');
 const {User} = require('../models/user');
 const generateToken = require('../logic');
 
-Router.post('/', (req, res) => {
+Router.post('/login', (req, res) => {
     const validateFunction = (data) => {
          const schema = {
             email: Joi.string().required().min(5),
