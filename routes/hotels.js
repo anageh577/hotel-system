@@ -1,11 +1,16 @@
 const express = require("express");
-const Router = express.Router();
+const Router = new express.Router();
 const auth = require("../middleware/authorization");
 const admin = require("../middleware/administration");
 
 // Custom models =====
 const { Hotel, validate } = require("../models/hotel");
 
+Router.get("/testhotel",[auth, admin], async (req, res) => {
+  const hotel = new Hotel(req.body);
+  const results = await hotel.save();
+  res.status(200).send(results);
+});
 Router.get("/get-all-hotels", async (req, res) => {
   const hotels = await Hotel.find();
   if (hotels.length < 1)
@@ -13,20 +18,18 @@ Router.get("/get-all-hotels", async (req, res) => {
   res.status(200).send(hotels);
 });
 
-Router.post("/add-hotel", [auth, admin], (req, res) => {
-  const createHotel = async (obj) => {
-    const hotel = new Hotel(obj);
-    const results = await hotel.save();
-    res.status(200).send(results);
-  };
+Router.post("/add-hotel", [auth, admin], async (req, res) => {
+  const hotel = new Hotel(req.body);
+  const results = await hotel.save();
+  res.status(200).send(results);
   // validate the body of request
-  validate(req.body)
-    .then((data) => {
-      createHotel(data);
-    })
-    .catch((err) => {
-      res.send(err.details[0].message);
-    });
+  // validate(req.body)
+  //   .then((data) => {
+  //     createHotel(data);
+  //   })
+  //   .catch((err) => {
+  //     res.send(err.details[0].message);
+  //   });
 });
 
 Router.get("/gethotel-by-id/:id", async (req, res) => {

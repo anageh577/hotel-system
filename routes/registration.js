@@ -1,5 +1,5 @@
 const express = require('express');
-const Router = express.Router();
+const Router = new express.Router();
 const bcrypt = require('bcrypt');
 
 // Custom modules =====
