@@ -5,12 +5,12 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 const hotelsRoutes = require("./routes/hotels");
-// const bookingRoutes = require("./routes/booking");
-// const resgisterRoutes = require("./routes/registration");
+const bookingRoutes = require("./routes/booking");
+const resgisterRoutes = require("./routes/registration");
 const authlogin = require("./routes/auth");
 app.use(hotelsRoutes);
-// app.use(resgisterRoutes);
-// app.use(bookingRoutes);
+app.use(resgisterRoutes);
+app.use(bookingRoutes);
 app.use(authlogin);
 
 mongoose

@@ -6,7 +6,7 @@ const admin = require("../middleware/administration");
 // Custom models =====
 const { Hotel, validate } = require("../models/hotel");
 
-Router.get("/testhotel",[auth, admin], async (req, res) => {
+Router.post("/add-hotel",[auth, admin], async (req, res) => {
   const hotel = new Hotel(req.body);
   const results = await hotel.save();
   res.status(200).send(results);
@@ -18,19 +18,7 @@ Router.get("/get-all-hotels", async (req, res) => {
   res.status(200).send(hotels);
 });
 
-Router.post("/add-hotel", [auth, admin], async (req, res) => {
-  const hotel = new Hotel(req.body);
-  const results = await hotel.save();
-  res.status(200).send(results);
-  // validate the body of request
-  // validate(req.body)
-  //   .then((data) => {
-  //     createHotel(data);
-  //   })
-  //   .catch((err) => {
-  //     res.send(err.details[0].message);
-  //   });
-});
+
 
 Router.get("/gethotel-by-id/:id", async (req, res) => {
   try {

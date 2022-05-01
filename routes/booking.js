@@ -11,7 +11,7 @@ Router.get('/:hotelID', auth, async (req, res) => {
     res.status(200).send(bookings)
 })
 
-Router.post('/:hotelID', auth, (req, res) => {
+Router.post('/book/:hotelID', auth, (req, res) => {
     let bookingObject = req.body;
     bookingObject.user = req.user.id;
     bookingObject.hotel = req.params.hotelID;
